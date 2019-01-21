@@ -49,13 +49,13 @@ char **my_str_to_word_array(char const *str)
 
 int my_show_word_array(char const *tab[])
 {
-    uint_t i = 0;
+    int res = 0;
 
-    for (; tab[i] && *tab[i]; i++) {
-        my_putstr(tab[i]);
-        my_putchar('\n');
+    for (uint_t i = 0; tab && tab[i]; i++) {
+        res += my_putstr(tab[i]);
+        res += my_putchar('\n');
     }
-    return i;
+    return res;
 }
 
 void free_array(char **m)

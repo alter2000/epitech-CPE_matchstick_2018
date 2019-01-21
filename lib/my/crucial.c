@@ -20,37 +20,26 @@ int my_putchar(int const c)
 {
     if (!c)
         return 0;
-    return write(1, &c, 1);
+    return write(STDOUT_FILENO, &c, 1);
 }
 
 long long int my_putstr(char const *str)
 {
-    unsigned long long int i = 0;
-
-    if (!str || !*str)
-        return 0;
-    for (; str[i]; i++)
-        my_putchar(str[i]);
-    return i;
+    return write(STDOUT_FILENO, str, my_strlen(str));
 }
 
 char *my_strdup(char const *src)
 {
-    char *dest = 0;
-
-    while (!dest)
-        dest = malloc((my_strlen(src) + 1) * sizeof(char));
-    dest = my_strcpy(dest, src);
-    return dest;
+    return my_strcpy(gib((my_strlen(src) + 1) * sizeof(char)), src);
 }
 
 char *my_strcpy(char *dest, char const *src)
 {
-    int i = 0;
+    int i;
 
     if (!src)
         return dest;
-    for (; src[i]; i++)
+    for (i = 0; src[i]; i++)
         dest[i] = src[i];
     dest[i] = 0;
     return dest;
