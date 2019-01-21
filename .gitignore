@@ -1,0 +1,11 @@
+tags
+**/*.o
+**/*.gc*
+**/libmy.a
+**/vgcore*
+matchstick
+idk.c
+**/*.out
+unit_tests
+tags
+data
