@@ -7,29 +7,33 @@
 
 #include "my.h"
 
-int my_atoi(char const *s)
+int my_atoi(char const **s)
 {
     int nbr = 0;
 
-    if (!s)
+    if (!s || !*s)
         return 0;
-    while (my_isspace(*s))
+    while (my_isspace(**s))
         s++;
-    for (;my_isdigit(*s); s++)
-        nbr = nbr * 10 + (*s - '0');
+    for (; my_isdigit(**s); (*s)++)
+        nbr = nbr * 10 + (**s - '0');
+    if (nbr > INT_MAX || nbr < INT_MIN)
+        return 0;
     return nbr;
 }
 
-long long int my_atoll(char const *s)
+long long int my_atoll(char const **s)
 {
     long long int nbr = 0;
 
-    if (!s)
+    if (!s || !*s)
         return 0;
-    while (my_isspace(*s))
-        s++;
-    for (;*s >= '0' && *s <= '9'; s++)
-        nbr = nbr * 10 + (*s - '0');
+    while (my_isspace(**s))
+        (*s)++;
+    for (;**s >= '0' && **s <= '9'; (*s)++)
+        nbr = nbr * 10 + (**s - '0');
+    if (nbr > LLONG_MAX || nbr < LLONG_MIN)
+        return 0;
     return nbr;
 }
 

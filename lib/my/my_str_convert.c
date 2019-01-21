@@ -40,6 +40,6 @@ void my_showstr(char const *str)
             my_putchar('\\');
             if (str[i] < 16)
                 my_putchar('0');
-            my_put_nbr_base(str[i], "0123456789abcdef");
+            my_putnbr_base(str[i], "0123456789abcdef");
         }
 }

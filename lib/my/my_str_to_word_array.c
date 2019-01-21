@@ -12,7 +12,7 @@ static int count_letters(char const *str)
 {
     unsigned int letters = 0;
 
-    for (uint_t i = 0; str && str[i] && \
+    for (uint_t i = 0; str[i] && \
             (my_isdigit(str[i]) || my_isalpha(str[i])); i++)
         letters++;
     return letters;
@@ -22,7 +22,7 @@ static int count_words(char const *str)
 {
     int words = 0;
 
-    for (uint_t i; str && str[i]; i++)
+    for (uint_t i; str[i]; i++)
         if (!my_isalpha(str[i]) && my_isalpha(str[i - 1]))
             words++;
     return words;
@@ -31,14 +31,11 @@ static int count_words(char const *str)
 char **my_str_to_word_array(char const *str)
 {
     int words = count_words(str);
-    char **arr;
+    char **arr = gib(sizeof(*arr) * (words + 1));
     int letters = count_letters(str);
     int word = 0;
     int i = 0;
 
-    if (!str)
-        return 0;
-    arr = gib(sizeof(*arr) * (words + 1));
     for (uint_t j = 0; str[j]; j++, i++, word = 0) {
         arr[i] = gib(letters * sizeof(*arr[i]));
         while (my_isspace(str[j]))

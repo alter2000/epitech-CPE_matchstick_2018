@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** muhlib
 ** File description:
-** memeset clone
+** memset(3) clone
 */
 
 #include "my.h"

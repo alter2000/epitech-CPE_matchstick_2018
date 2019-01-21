@@ -7,40 +7,38 @@
 
 #include "my.h"
 
-int my_put_nbr_base(int nb, char const *base)
+int my_putnbr_base(int nb, char const *base)
 {
     int b = my_strlen(base);
 
-    if (nb < INT_MIN + b + 1 || nb > INT_MAX - b - 1) {
+    if (nb < INT_MIN || nb > INT_MAX) {
         write(2, "put_nbr: out of bounds\n", 23);
         return 0;
     }
     if (nb < 0) {
         my_putchar('-');
-        my_put_nbr_base(-nb, base);
+        my_putnbr_base(-nb, base);
     } else if (nb > b - 1) {
-        my_put_nbr_base(nb / b, base);
-        my_put_nbr_base(nb % b, base);
+        my_putnbr_base(nb / b, base);
+        my_putnbr_base(nb % b, base);
     } else
         my_putchar(base[nb]);
     return nb;
 }
 
-int my_put_nbr(int nb)
+int my_putnbr(int nb)
 {
-    return my_put_nbr_base(nb, "0123456789");
+    return my_putnbr_base(nb, "0123456789");
 }
 
 char *my_itoa(int nb)
 {
     short sign = (nb < 0);
-    char *str = malloc(my_count_digits(nb) + sign + 1);
+    char *str = gib(my_numlen(nb) + sign + 1);
     short left = 0;
     unsigned int i = 0;
     nb = (nb < 0) ? -nb : nb;
 
-    while (!str)
-        str = malloc(my_count_digits(nb) + sign + 1);
     do {
         left = nb % 10;
         nb /= 10;
@@ -54,9 +52,9 @@ char *my_itoa(int nb)
 
 long long int my_strtoll(char *s, char **end, long long int rec)
 {
-    if (rec < LLONG_MIN + 100)
+    if (rec < LLONG_MIN)
         return LLONG_MIN;
-    if (rec > LLONG_MAX - 100)
+    if (rec > LLONG_MAX)
         return LLONG_MAX;
     if (*s && *(s + 1) && (*s == '-' && my_isdigit(*(s + 1)))) {
         end++;

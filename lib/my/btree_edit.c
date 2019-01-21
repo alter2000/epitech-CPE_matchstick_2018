@@ -39,7 +39,7 @@ size_t btree_level_count(btree_t const *root)
     if (!root)
         return 0;
 
-    return 1 + min(btree_level_count(root->left), \
+    return 1 + MIN(btree_level_count(root->left), \
                     btree_level_count(root->right));
 }
 

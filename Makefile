@@ -8,8 +8,7 @@
 NAME=matchstick
 CFLAGS+= -Werror -Wall -I./include -L./lib/my -lmy
 DFLAGS+= -Wall -I./include -L./lib/my -lmy
-
-SRC=$(wildcard ./back/*.c) $(wildcard ./window/*.c) main.c
+SRC=$(wildcard *.c) $(wildcard ./framebuffer/*.c)
 OBJ=$(SRC:.c=.o)
 
 all: $(NAME)

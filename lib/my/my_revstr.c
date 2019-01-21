@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** muhlib
 ** File description:
-** reverse implementation
+** reverse() implementation
 */
 
 #include "my.h"
@@ -26,7 +26,7 @@ void my_swap(int *a, int *b)
     *a = *a ^ *b;
 }
 
-void my_sort_int_array(int *array, int size)
+void bsort_int(int *array, int size)
 {
     for (int i = 0; i < size; i++)
         for (int j = 0; j < size - 1; j++)

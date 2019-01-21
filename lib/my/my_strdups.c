@@ -31,9 +31,7 @@ char *my_strncat(char *dest, char const *src, int n)
 
 int my_strcmp(char const *s1, char const *s2)
 {
-    if (!s1 || !s2)
-        return 0;
-    while (*s1 && *s2) {
+    while (*s2) {
         if (*s1 == *s2)
             return my_strcmp((s1 + 1), (s2 + 1));
         else
@@ -44,15 +42,13 @@ int my_strcmp(char const *s1, char const *s2)
 
 int my_strncmp(char const *s1, char const *s2, int n)
 {
-    if (!s1 || !s2 || n)
-        return 0;
-    while (*s1 && *s2 && n) {
+    while (*s2 && n) {
         if (*s1 == *s2)
             return my_strncmp((s1 + 1), (s2 + 1), n - 1);
         else
-            return s1 - s2;
+            return *s1 - *s2;
     }
-    return -1;
+    return 0;
 }
 
 char *my_strncpy(char *dest, char const *src, int n)
@@ -64,6 +60,6 @@ char *my_strncpy(char *dest, char const *src, int n)
     for (; src[i] && i < n; i++)
         dest[i] = src[i];
     if (i > n)
-        dest[i] = '\0';
+        dest[i] = 0;
     return dest;
 }
