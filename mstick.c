@@ -16,12 +16,14 @@ static int get_sticks_line(int lines)
     return sticks;
 }
 
-static bool needs_pipe(int lines, int maxlen, int x, int y)
+static char needs_pipe(int lines, int maxlen, int x, int y)
 {
-    if (!(y == 0 || x == 0 || y == lines + 1 || x == maxlen + 1) && \
-            (x - (lines + y) < 0 && (lines + y) > maxlen - x + 1))
-        return my_printf("num: %d\tx: %d\ty: %d\n", x - lines - y, x, y);
-    return false;
+    if (y == 0 || x == 0 || y == lines + 1 || x == maxlen + 1)
+        return '*';
+    else if ((x - (lines + y) < 0 && (lines + y) > maxlen - x + 1))
+        return '|';
+    else
+        return ' ';
 }
 
 static board_t *init_board(int lines, int maxlen, int turn)
@@ -29,20 +31,15 @@ static board_t *init_board(int lines, int maxlen, int turn)
     board_t *b = gib(sizeof(*b));
     char **bd = gib(sizeof(*bd) * (lines + 3));
 
-    for (int i = 0, j = 0; i < (lines + 2); i++, j = 0) {
-        bd[i] = gib(sizeof(*bd[i]) * (maxlen + 3));
-        for (; j < (maxlen + 2); j++) {
-            bd[i][j] = ((i == 0) || (j == 0) || (i == (lines + 1)) \
-                    || (j == (maxlen + 1))) ? '*' : ' ';
-            bd[i][j] = needs_pipe(lines, maxlen, j, i) ? '|' : bd[i][j];
-        }
-    }
+    for (int i = 0, j = 0; i < (lines + 2); i++, j = 0)
+        for (bd[i] = gib(sizeof(*bd[i]) * (maxlen + 3)); j < maxlen + 2; j++)
+            bd[i][j] = needs_pipe(lines, maxlen, j, i);
     b->b = bd;
     b->stnum = turn;
     b->wid = maxlen;
     b->len = lines;
     b->row = 1;
-    b->col = 1;
+    b->col = maxlen / 2 + 1;
     return b;
 }
 
