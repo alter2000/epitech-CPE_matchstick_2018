@@ -31,9 +31,9 @@ static char *append(char *lnbuf, int n, file_desc_t *f)
     int oldlen = my_strlen(lnbuf);
     char *newlen = malloc((oldlen + n + 1) * sizeof(*newlen));
 
-    my_strncpy(newlen, lnbuf, oldlen);
+    my_memcpy(newlen, lnbuf, oldlen);
     newlen[oldlen + n] = 0;
-    my_strncpy(newlen + oldlen, f->rbuf + f->ridx, n);
+    my_memcpy(newlen + oldlen, f->rbuf + f->ridx, n);
     if (lnbuf)
         free(lnbuf);
     f->ridx += n + 1;
@@ -55,14 +55,14 @@ char *getd(const int fd, const int ch)
     int n = 0;
     char *lnbuf = 0;
 
-    if (READ_SIZE < 0)
-        return 0;
     while (1) {
         if (readret <= f->ridx) {
             reread(f, &n, &readret, fd);
             if (readret <= 0)
                 return (readret == 0) ? lnbuf : 0;
         }
+        if (f->rbuf[f->ridx + n] == EOF)
+            return 0;
         if (f->rbuf[f->ridx + n] == ch)
             return append(lnbuf, n, f);
         if (f->ridx + n == readret - 1)

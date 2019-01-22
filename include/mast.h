@@ -12,11 +12,18 @@
 
 typedef struct {
     int stnum;
-    int width;
+    int len;
+    int wid;
     int row;
     int col;
+    int last[3];
+    char **b;
 } board_t;
 
 int mstick(int, int);
+
+int events(board_t *, bool);
+int mod_board(board_t *, int, int);
+int ai_play(board_t *);
 
 #endif

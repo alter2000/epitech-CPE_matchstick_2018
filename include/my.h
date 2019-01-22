@@ -57,7 +57,7 @@ typedef struct file_desc_s {
     int fd;
     int ridx;
     int rbuflen;
-    char rbuf[READ_SIZE + 2];
+    int rbuf[READ_SIZE + 2];
     struct file_desc_s *next;
 } file_desc_t;
 
@@ -125,6 +125,7 @@ void *my_memset(char *, char, size_t);
 char *my_realloc(char *, int);
 void *gib(size_t);
 void *regib(char *, int);
+void *my_memcpy(void *, const void *, size_t);
 
 char *getl(int const);
 char *getd(int const, int const);
