@@ -19,7 +19,7 @@
 #    include <unistd.h>
 
 #    ifndef READ_SIZE
-#        define READ_SIZE (20)
+#        define READ_SIZE (1)
 #    endif // READ_SIZE
 
 #    define MIN(i, j) (((i) < (j)) ? (i) : (j))
@@ -75,6 +75,7 @@ int my_printf(char const *, ...);
 unsigned long long int my_strlen(char const *);
 int my_putchar(int const);
 long long int my_putstr(char const *);
+int my_puts(char *);
 int my_numlen(long long int);
 int my_putnbr(int);
 int my_putnbr_base(int, char const *);

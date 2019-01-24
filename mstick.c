@@ -59,12 +59,16 @@ int mstick(int lines, int turn)
     while (sticks >= 1) {
         draw_board(board);
         evret = events(board, user);
-        if (!evret)
+        if (evret == 0)
             break;
-        else
+        if (evret < 0)
+            continue;
+        else {
             sticks -= evret;
+            user = !user;
+        }
         if (sticks < 1)
-            my_putstr("boi tf is u doin\n");
+            my_puts("boi tf is u doin");
     }
     return (user) ? 0 : 0;
 }

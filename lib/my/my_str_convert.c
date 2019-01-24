@@ -43,3 +43,8 @@ void my_showstr(char const *str)
             my_putnbr_base(str[i], "0123456789abcdef");
         }
 }
+
+int my_puts(char *s)
+{
+    return my_putstr(s) + write(STDOUT_FILENO, "\n", 1);
+}
