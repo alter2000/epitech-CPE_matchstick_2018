@@ -25,13 +25,9 @@ static int get_user_line(board_t *b, int *ln)
 
 static int enough_matches(board_t *board, int ln, int m)
 {
-    int mnum = 0;
-
-    if (ln > board->len || ln < 1 || m < ln * 2 - 1 || m < 1)
+    if (ln > board->len || ln < 1 || m > ln * 2 - 1 || m < 1)
         return 0;
-    for (int i = 0; board->b[ln] && board->b[ln][i]; i++)
-        mnum += (board->b[ln][i] == '|');
-    return (mnum >= m);
+    return (count_matches_line(board->b[ln]) >= m);
 }
 
 static int get_user_match(board_t *b, int *m, int *ln)
@@ -51,11 +47,9 @@ static int get_user_match(board_t *b, int *m, int *ln)
     if (*m > b->stnum && my_printf("Error: you cannot remove"
                 " more than %d matches per turn\n", *m))
         return 1;
-    if (!enough_matches(b, *ln, *m))
-    {
-            my_puts("Error: not enough matches on this line");
+    if (!enough_matches(b, *ln, *m) && \
+            my_puts("Error: not enough matches on this line"))
         return 1;
-    }
     return 0;
 }
 

@@ -26,4 +26,5 @@ int events(board_t *, bool);
 int mod_board(board_t *, int, int);
 int ai_play(board_t *);
 
+int count_matches_line(char *);
 #endif
