@@ -23,12 +23,10 @@ static int get_smallest_fitting_line(char **b, int max)
 {
     int smidx = 0;
 
-    printf("max: %d\n", max);
     for (int i = 1, ctmp = INT_MAX, cur = 0; b && b[i]; i++) {
         cur = count_matches_line(b[i]);
-        if (cur < ctmp && cur >= max) {
+        if (cur < ctmp && cur >= max)
             smidx = i;
-        }
     }
     return smidx - 1;
 }
