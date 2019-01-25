@@ -80,8 +80,11 @@ int events(board_t *board, bool user)
     int match;
 
     if (user) {
-        return (get_user(board, &line, &match)) ? \
-                mod_board(board, line, match) : 0;
+        if (get_user(board, &line, &match) && my_printf("Player removed %d "
+                    "match(es) from line %d\n", match, line)) {
+            return mod_board(board, line, match);
+        } else
+            return 0;
     } else
         return ai_play(board);
 }

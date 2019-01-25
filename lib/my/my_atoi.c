@@ -11,11 +11,11 @@ int my_atoi(char const **s)
 {
     int nbr = 0;
 
-    if (!s || !*s)
+    if (!s || !*s || !**s)
         return 0;
-    while (my_isspace(**s))
-        s++;
-    for (; my_isdigit(**s); (*s)++)
+    while (*s && my_isspace(**s))
+        (*s)++;
+    for (;*s && my_isdigit(**s); (*s)++)
         nbr = nbr * 10 + (**s - '0');
     if (nbr > INT_MAX || nbr < INT_MIN)
         return 0;

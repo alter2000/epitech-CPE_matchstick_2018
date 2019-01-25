@@ -46,14 +46,14 @@ static board_t *init_board(int lines, int maxlen, int turn)
 static void draw_board(board_t *board)
 {
     my_show_word_array((const char **)board->b);
-    my_putstr("\n");
+    my_puts("");
 }
 
 int mstick(int lines, int turn)
 {
     int sticks = get_sticks_line(lines);
     board_t *board = init_board(lines, (lines * 2) - 1, turn);
-    bool user = false;
+    bool user = true;
     int evret;
 
     while (sticks >= 1) {
@@ -63,7 +63,7 @@ int mstick(int lines, int turn)
             break;
         if (evret < 0)
             continue;
-        else {
+        if (evret > 0) {
             sticks -= evret;
             user = !user;
         }
