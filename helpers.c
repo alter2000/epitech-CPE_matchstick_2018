@@ -18,7 +18,7 @@ int count_matches_line(char *line)
 
 int loss(bool user)
 {
-    if (user) {
+    if (!user) {
         my_puts("You lost, too bad...");
         return 2;
     } else {
