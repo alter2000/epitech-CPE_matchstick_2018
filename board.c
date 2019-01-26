@@ -49,7 +49,6 @@ int ai_play(board_t *b)
     int ln = get_ai_coords(b, &mat);
 
     my_puts("AI's turn...");
-    my_printf("total: %d	target: %d	line: %d\n", b->total, mat, ln);
     ret = mod_board(b, ln, mat);
     my_printf("AI removed %d match(es) from line %d\n", mat, ln);
     return ret;
