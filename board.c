@@ -23,9 +23,9 @@ static int get_smallest_fitting_line(char **b, int max)
 
 static int get_ai_coords(board_t *b, int *m)
 {
-    *m = b->stnum - b->last;
+    *m = 1 + b->stnum - b->last;
     if (*m <= 0)
-        (*m)++;
+        *m = 1;
     return get_smallest_fitting_line(b->b, *m);
 }
 
