@@ -38,8 +38,7 @@ static int get_user_match(board_t *b, int *m, int *ln)
     buf = getl(1);
     if (!buf)
         return -1;
-    if (*buf == '0' && my_puts("Error: you have to remove at least one "
-                "match\n"))
+    if (*buf == '0' && my_puts("Error: you have to remove at least one match"))
         return 1;
     *m = my_atoi((const char **)&buf);
     if (*m <= 0 && my_puts("Error: invalid input (positive number expected)"))
@@ -72,19 +71,23 @@ static int get_user(board_t *board, int *ln, int *mat)
         if (0 == ret)
             break;
     }
+    return 1;
 }
 
-int events(board_t *board, bool user)
+int events(board_t *board, bool *user)
 {
     int line;
     int match;
 
-    if (user) {
+    if (*user) {
         if (get_user(board, &line, &match) && my_printf("Player removed %d "
                     "match(es) from line %d\n", match, line)) {
+            (*user) = !(*user);
             return mod_board(board, line, match);
         } else
             return 0;
-    } else
+    } else {
+        (*user) = !(*user);
         return ai_play(board);
+    }
 }

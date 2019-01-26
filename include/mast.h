@@ -11,20 +11,20 @@
 #include "my.h"
 
 typedef struct {
+    int total;
     int stnum;
     int len;
     int wid;
-    int row;
-    int col;
-    int last[3];
+    int last;
     char **b;
 } board_t;
 
 int mstick(int, int);
 
-int events(board_t *, bool);
+int events(board_t *, bool *);
 int mod_board(board_t *, int, int);
 int ai_play(board_t *);
 
 int count_matches_line(char *);
+int loss(bool);
 #endif

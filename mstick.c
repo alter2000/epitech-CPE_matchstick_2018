@@ -38,8 +38,7 @@ static board_t *init_board(int lines, int maxlen, int turn)
     b->stnum = turn;
     b->wid = maxlen;
     b->len = lines;
-    b->row = 1;
-    b->col = maxlen / 2 + 1;
+    b->total = get_sticks_line(lines);
     return b;
 }
 
@@ -51,24 +50,17 @@ static void draw_board(board_t *board)
 
 int mstick(int lines, int turn)
 {
-    int sticks = get_sticks_line(lines);
     board_t *board = init_board(lines, (lines * 2) - 1, turn);
     bool user = true;
     int evret;
 
-    while (sticks >= 1) {
-        draw_board(board);
-        evret = events(board, user);
+    draw_board(board);
+    while (board->total >= 1) {
+        evret = events(board, &user);
         if (evret == 0)
             break;
-        if (evret < 0)
-            continue;
-        if (evret > 0) {
-            sticks -= evret;
-            user = !user;
-        }
-        if (sticks < 1)
-            my_puts("boi tf is u doin");
+        board->total -= evret;
+        draw_board(board);
     }
-    return (user) ? 0 : 0;
+    return loss(user);
 }
