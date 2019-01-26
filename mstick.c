@@ -58,7 +58,7 @@ int mstick(int lines, int turn)
     while (board->total >= 1) {
         evret = events(board, &user);
         if (evret == 0)
-            break;
+            return 0;
         board->total -= evret;
         draw_board(board);
     }
