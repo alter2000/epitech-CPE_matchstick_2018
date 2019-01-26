@@ -25,17 +25,20 @@ static int get_smallest_fitting_line(char **b, int max)
 
     for (int i = 1, ctmp = INT_MAX, cur = 0; b && b[i]; i++) {
         cur = count_matches_line(b[i]);
-        if (cur < ctmp && cur >= max)
+        if (cur < ctmp && cur >= max) {
             smidx = i;
+            ctmp = cur;
+        }
     }
-    return smidx - 1;
+    printf("smidx: %d\n", smidx);
+    return smidx;
 }
 
 int mod_board(board_t *b, int line, int mat)
 {
     for (int i = get_idx(b->b[line], 'r'), cnt = mat; \
             cnt > 0 && i > 1; i--, cnt--)
-        b->b[line][i] = ' ';
+        b->b[line][i] = 'r';
     return mat;
 }
 

@@ -18,7 +18,7 @@ static int get_user_line(board_t *b, int *ln)
     *ln = my_atoi((const char **)&buf);
     if (*ln < 1 && my_puts("Error: invalid input (positive number expected)"))
         return 1;
-    if ((*ln > b->len) && my_putnbr(b->len) && my_puts("Error: this line is out of range"))
+    if ((*ln > b->len) && my_puts("Error: this line is out of range"))
         return 1;
     return 0;
 }
