@@ -27,7 +27,7 @@ static int get_ai_coords(board_t *b, int *m)
 {
     int ln = 0;
 
-    *m = 1 + b->stnum - b->last;
+    *m = b->stnum - b->last;
     if (*m <= 0)
         *m = 1;
     while (*m > b->total)
@@ -37,7 +37,6 @@ static int get_ai_coords(board_t *b, int *m)
         (*m)--;
         if (b->total - *m == 0 && b->total != 1)
             (*m)--;
-        my_printf("trying out %d matches\n", *m);
         ln = get_smallest_fitting_line(b->b, *m);
         if (b->total - *m < 0)
             ln = 0;
