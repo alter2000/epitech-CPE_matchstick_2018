@@ -57,7 +57,7 @@ char *get_next_delim(const int fd, const int ch)
             if (readret <= 0)
                 return (readret == 0) ? lnbuf : 0;
         }
-        if (f->rbuf[f->ridx + n] == ch)
+        if (f->rbuf[f->ridx + n] == ch || f->rbuf[f->ridx + n] == EOF)
             return append(lnbuf, n, f);
         if (f->ridx + n == readret - 1)
             lnbuf = append(lnbuf, n + 1, f);
@@ -65,9 +65,9 @@ char *get_next_delim(const int fd, const int ch)
     }
 }
 
-char *get_next_line(const int fd)
+char *getd(const int fd, const int c)
 {
-    return get_next_delim(fd, '\n');
+    return get_next_delim(fd, c);
 }
 
 char *getl(const int fd)

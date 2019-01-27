@@ -11,7 +11,7 @@ static int get_user_line(board_t *b, int *ln)
 {
     char *buf;
 
-    my_putstr("Line: ");
+    my_puts("Line: ");
     buf = getl(1);
     if (!buf)
         return -1;
@@ -34,7 +34,7 @@ static int get_user_match(board_t *b, int *m, int *ln)
 {
     char *buf;
 
-    my_putstr("Matches: ");
+    my_puts("Matches: ");
     buf = getl(1);
     if (!buf)
         return -1;
