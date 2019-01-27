@@ -44,7 +44,7 @@ static int get_user_match(board_t *b, int *m, int *ln)
     if (*m <= 0 && my_puts("Error: invalid input (positive number expected)"))
         return 1;
     if (*m > b->stnum && my_printf("Error: you cannot remove"
-                " more than %d matches per turn\n", *m))
+                " more than %d matches per turn\n", b->stnum))
         return 1;
     if (!enough_matches(b, *ln, *m) && \
             my_puts("Error: not enough matches on this line"))

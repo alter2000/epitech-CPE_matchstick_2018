@@ -11,6 +11,8 @@ static int get_smallest_fitting_line(char **b, int max)
 {
     int smidx = 0;
 
+    if (max <= 0)
+        return 0;
     for (int i = 1, ctmp = INT_MAX, cur = 0; b && b[i]; i++) {
         cur = count_matches_line(b[i]);
         if (cur < ctmp && cur >= max) {
@@ -23,10 +25,24 @@ static int get_smallest_fitting_line(char **b, int max)
 
 static int get_ai_coords(board_t *b, int *m)
 {
+    int ln = 0;
+
     *m = 1 + b->stnum - b->last;
     if (*m <= 0)
         *m = 1;
-    return get_smallest_fitting_line(b->b, *m);
+    while (*m > b->total)
+        (*m)--;
+    (*m)++;
+    while (!ln && *m > 0) {
+        (*m)--;
+        if (b->total - *m == 0 && b->total != 1)
+            (*m)--;
+        my_printf("trying out %d matches\n", *m);
+        ln = get_smallest_fitting_line(b->b, *m);
+        if (b->total - *m < 0)
+            ln = 0;
+    }
+    return ln;
 }
 
 int mod_board(board_t *b, int line, int mat)
