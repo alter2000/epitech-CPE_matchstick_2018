@@ -12,7 +12,7 @@ static int get_user_line(board_t *b, int *ln)
     char *buf;
 
     my_putstr("\nLine: ");
-    buf = getl(1);
+    buf = getl(STDIN_FILENO);
     if (!buf)
         return -1;
     *ln = my_atoi((const char **)&buf);
@@ -36,7 +36,7 @@ static int get_user_match(board_t *b, int *m, int *ln)
     char *buf;
 
     my_putstr("\nMatches: ");
-    buf = getl(1);
+    buf = getl(STDIN_FILENO);
     if (!buf)
         return -1;
     if (*buf == '0' && my_putstr("\nError: you have to remove at "
